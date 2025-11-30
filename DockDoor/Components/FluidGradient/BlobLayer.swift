@@ -32,7 +32,7 @@ import SwiftUI
  */
 
 /// A CALayer that draws a single blob on the screen
-public class BlobLayer: CAGradientLayer {
+class BlobLayer: CAGradientLayer {
     init(color: Color) {
         super.init()
 
@@ -128,7 +128,7 @@ public class BlobLayer: CAGradientLayer {
     }
 
     // Required by the framework
-    override public init(layer: Any) {
+    override init(layer: Any) {
         super.init(layer: layer)
     }
 }

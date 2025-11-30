@@ -33,11 +33,11 @@ import SwiftUI
  See the LICENSE file in the root directory of this project for details.
  */
 
-public typealias SystemColor = NSColor
-public typealias SystemView = NSView
+typealias SystemColor = NSColor
+typealias SystemView = NSView
 
 /// A system view that presents an animated gradient with ``CoreAnimation``
-public class FluidGradientView: NSView {
+class FluidGradientView: NSView {
     var speed: CGFloat
 
     let baseLayer = ResizableLayer()
@@ -102,7 +102,7 @@ public class FluidGradientView: NSView {
     }
 
     /// Create blobs and add to specified layer
-    public func create(_ colors: [Color], layer: CALayer) {
+    func create(_ colors: [Color], layer: CALayer) {
         // Remove blobs at the end if colors are removed
         let count = layer.sublayers?.count ?? 0
         let removeCount = count - colors.count
@@ -122,7 +122,7 @@ public class FluidGradientView: NSView {
     }
 
     /// Update sublayers and set speed and blur levels
-    public func update(speed: CGFloat) {
+    func update(speed: CGFloat) {
         stopAnimationTimer()
         self.speed = speed
         startAnimationTimer()
@@ -162,7 +162,7 @@ public class FluidGradientView: NSView {
 
     // MARK: - NSView Overrides
 
-    override public func viewDidMoveToWindow() {
+    override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
         let scale = window?.backingScaleFactor ?? 2
         layer?.contentsScale = scale
@@ -178,17 +178,17 @@ public class FluidGradientView: NSView {
         }
     }
 
-    override public func viewDidHide() {
+    override func viewDidHide() {
         super.viewDidHide()
         stopAnimationTimer()
     }
 
-    override public func viewDidUnhide() {
+    override func viewDidUnhide() {
         super.viewDidUnhide()
         startAnimationTimer()
     }
 
-    override public func resize(withOldSuperviewSize oldSize: NSSize) {
+    override func resize(withOldSuperviewSize oldSize: NSSize) {
         super.resize(withOldSuperviewSize: oldSize)
         updateBlur()
     }
@@ -199,9 +199,9 @@ protocol FluidGradientDelegate: AnyObject {
 }
 
 extension FluidGradientView: CALayerDelegate, NSViewLayerContentScaleDelegate {
-    public func layer(_ layer: CALayer,
-                      shouldInheritContentsScale newScale: CGFloat,
-                      from window: NSWindow) -> Bool
+    func layer(_ layer: CALayer,
+               shouldInheritContentsScale newScale: CGFloat,
+               from window: NSWindow) -> Bool
     {
         true
     }

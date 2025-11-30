@@ -7,9 +7,9 @@ struct FirstTimeViewAppIcon: View {
     var action: () -> Void = {}
 
     @State private var clicking = false
-    @State private var rotating: Bool? = nil
-    @State private var rotating2: Bool? = nil
-    @State private var rotatingTimer: Timer? = nil
+    @State private var rotating: Bool?
+    @State private var rotating2: Bool?
+    @State private var rotatingTimer: Timer?
     @State private var hovering = false
     @State private var clickDownSoundPlayer = try! AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "mouse-down", withExtension: "mp3")!)
     @State private var clickUpSoundPlayer = try! AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "mouse-up", withExtension: "mp3")!)

@@ -60,11 +60,11 @@ struct MediaControlsView: View {
     @Default(.appNameStyle) var appNameStyle
     @Default(.showAnimations) var showAnimations
 
-    @State private var appIcon: NSImage? = nil
+    @State private var appIcon: NSImage?
     @State private var hoveringAppIcon: Bool = false
     @State private var hoveringWindowTitle: Bool = false
     @State private var isLoadingMediaInfo: Bool = true
-    @State private var dominantArtworkColor: Color? = nil
+    @State private var dominantArtworkColor: Color?
     @State private var hasAppeared: Bool = false
 
     @State private var isArtworkExpanded: Bool = false

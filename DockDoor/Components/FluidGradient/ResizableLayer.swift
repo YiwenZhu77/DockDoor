@@ -32,14 +32,14 @@ import SwiftUI
  */
 
 /// An implementation of ``CALayer`` that resizes its sublayers
-public class ResizableLayer: CALayer {
+class ResizableLayer: CALayer {
     override init() {
         super.init()
         autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
         sublayers = []
     }
 
-    override public init(layer: Any) {
+    override init(layer: Any) {
         super.init(layer: layer)
     }
 
@@ -48,7 +48,7 @@ public class ResizableLayer: CALayer {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override public func layoutSublayers() {
+    override func layoutSublayers() {
         super.layoutSublayers()
         sublayers?.forEach { layer in
             layer.frame = self.frame

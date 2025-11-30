@@ -26,7 +26,7 @@ struct CalendarView: View {
 
     @Default(.uniformCardRadius) private var uniformCardRadius
 
-    @State private var appIcon: NSImage? = nil
+    @State private var appIcon: NSImage?
     @State private var hoveringAppIcon = false
     @State private var hoveringWindowTitle = false
 

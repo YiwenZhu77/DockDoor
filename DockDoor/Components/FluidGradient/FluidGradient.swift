@@ -31,7 +31,7 @@ import SwiftUI
  See the LICENSE file in the root directory of this project for details.
  */
 
-public struct FluidGradient: View {
+struct FluidGradient: View {
     private var blobs: [Color]
     private var highlights: [Color]
     private var speed: CGFloat
@@ -39,10 +39,10 @@ public struct FluidGradient: View {
 
     @State var blurValue: CGFloat = 0.0
 
-    public init(blobs: [Color],
-                highlights: [Color] = [],
-                speed: CGFloat = 1.0,
-                blur: CGFloat = 0.75)
+    init(blobs: [Color],
+         highlights: [Color] = [],
+         speed: CGFloat = 1.0,
+         blur: CGFloat = 0.75)
     {
         self.blobs = blobs
         self.highlights = highlights
@@ -50,7 +50,7 @@ public struct FluidGradient: View {
         self.blur = blur
     }
 
-    public var body: some View {
+    var body: some View {
         Representable(blobs: blobs,
                       highlights: highlights,
                       speed: speed,

@@ -63,11 +63,11 @@ struct WindowPreviewHoverContainer: View {
     @Default(.showAnimations) var showAnimations
     @Default(.scrollToMouseHoverInSwitcher) var scrollToMouseHoverInSwitcher
 
-    @State private var draggedWindowIndex: Int? = nil
+    @State private var draggedWindowIndex: Int?
     @State private var isDragging = false
 
     @State private var hasAppeared: Bool = false
-    @State private var appIcon: NSImage? = nil
+    @State private var appIcon: NSImage?
     @State private var hoveringAppIcon: Bool = false
     @State private var hoveringWindowTitle: Bool = false
 
