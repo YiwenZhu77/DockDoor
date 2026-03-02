@@ -426,16 +426,60 @@ enum WindowUtil {
 
     static func getAllWindowsOfAllApps() -> [WindowInfo] {
         let windows = desktopSpaceWindowCacheManager.getAllWindows()
-        let filteredWindows = !Defaults[.includeHiddenWindowsInSwitcher]
+        var filteredWindows = !Defaults[.includeHiddenWindowsInSwitcher]
             ? windows.filter { !$0.isHidden && !$0.isMinimized }
             : windows
 
         // Filter by frontmost app if enabled
         if Defaults[.limitSwitcherToFrontmostApp] {
-            return getWindowsForFrontmostApp(from: filteredWindows)
+            filteredWindows = getWindowsForFrontmostApp(from: filteredWindows)
+        }
+
+        if Defaults[.showSwitcherWindowsFromCurrentSpaceOnly] {
+            filteredWindows = filterWindowsInCurrentSpace(filteredWindows)
         }
 
         return filteredWindows
+    }
+
+    static func filterWindowsInCurrentSpace(_ windows: [WindowInfo]) -> [WindowInfo] {
+        let activeSpaceIDs = currentActiveSpaceIDs()
+
+        var windowOnScreenMap: [CGWindowID: Bool] = [:]
+        if let windowList = CGWindowListCopyWindowInfo([.optionAll], kCGNullWindowID) as? [[String: AnyObject]] {
+            for windowInfo in windowList {
+                if let windowNumber = windowInfo[kCGWindowNumber as String] as? NSNumber {
+                    let windowID = CGWindowID(windowNumber.uint32Value)
+                    let isOnScreen = (windowInfo[kCGWindowIsOnscreen as String] as? NSNumber)?.boolValue ?? false
+                    windowOnScreenMap[windowID] = isOnScreen
+                }
+            }
+        }
+
+        return windows.filter { windowInfo in
+            let windowSpaces = Set(windowInfo.id.cgsSpaces().map { Int($0) })
+            let isOnScreen = windowOnScreenMap[windowInfo.id] ?? false
+
+            if windowInfo.isMinimized || windowInfo.isHidden {
+                if !windowSpaces.isEmpty {
+                    return !windowSpaces.isDisjoint(with: activeSpaceIDs)
+                }
+                if let spaceID = windowInfo.spaceID {
+                    return activeSpaceIDs.contains(spaceID)
+                }
+                return true
+            }
+
+            if !windowSpaces.isEmpty {
+                return !windowSpaces.isDisjoint(with: activeSpaceIDs)
+            }
+
+            if isOnScreen {
+                return true
+            }
+
+            return false
+        }
     }
 
     static func getWindowsForFrontmostApp(from windows: [WindowInfo]) -> [WindowInfo] {

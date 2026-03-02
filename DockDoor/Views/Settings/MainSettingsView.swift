@@ -93,6 +93,7 @@ struct MainSettingsView: View {
     @Default(.includeHiddenWindowsInSwitcher) var includeHiddenWindowsInSwitcher
     @Default(.useClassicWindowOrdering) var useClassicWindowOrdering
     @Default(.limitSwitcherToFrontmostApp) var limitSwitcherToFrontmostApp
+    @Default(.showSwitcherWindowsFromCurrentSpaceOnly) var showSwitcherWindowsFromCurrentSpaceOnly
     @Default(.fullscreenAppBlacklist) var fullscreenAppBlacklist
     @Default(.groupAppInstancesInDock) var groupAppInstancesInDock
 
@@ -454,6 +455,12 @@ struct MainSettingsView: View {
 
                             Toggle(isOn: $limitSwitcherToFrontmostApp) { Text("Limit Window Switcher to active app only") }
                             Text("Only show windows from the currently active/frontmost application.")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.leading, 20)
+
+                            Toggle(isOn: $showSwitcherWindowsFromCurrentSpaceOnly) { Text("Show Window Switcher windows from current Space only") }
+                            Text("Only display switcher windows that are in the current virtual desktop/Space.")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                                 .padding(.leading, 20)
@@ -889,6 +896,7 @@ struct MainSettingsView: View {
                 includeHiddenWindowsInSwitcher = Defaults.Keys.includeHiddenWindowsInSwitcher.defaultValue
                 useClassicWindowOrdering = Defaults.Keys.useClassicWindowOrdering.defaultValue
                 limitSwitcherToFrontmostApp = Defaults.Keys.limitSwitcherToFrontmostApp.defaultValue
+                showSwitcherWindowsFromCurrentSpaceOnly = Defaults.Keys.showSwitcherWindowsFromCurrentSpaceOnly.defaultValue
                 fullscreenAppBlacklist = Defaults.Keys.fullscreenAppBlacklist.defaultValue
 
                 Defaults[.UserKeybind] = Defaults.Keys.UserKeybind.defaultValue

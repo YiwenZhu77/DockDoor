@@ -105,6 +105,7 @@ extension Defaults.Keys {
     // MARK: - Window Switcher Filters
 
     static let limitSwitcherToFrontmostApp = Key<Bool>("limitSwitcherToFrontmostApp", default: false)
+    static let showSwitcherWindowsFromCurrentSpaceOnly = Key<Bool>("showSwitcherWindowsFromCurrentSpaceOnly", default: false)
     static let fullscreenAppBlacklist = Key<[String]>("fullscreenAppBlacklist", default: [])
 
     // MARK: - Filters
